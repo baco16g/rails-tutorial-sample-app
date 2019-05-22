@@ -7,6 +7,11 @@ ruby '2.6.3'
 gem 'rails', '~> 5.2.3'
 # Use hash password
 gem 'bcrypt'
+# Use generate dummy users
+gem 'faker'
+# Use generatet a pagenation
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use jQuery
