@@ -31,8 +31,12 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
+  config.action_mailer.raise_delivery_errors = true
+  
+  config.action_mailer.delivery_method = :test
+  host = '1a83689915be4622be32d4625719cd69.vfs.cloud9.ap-southeast-1.amazonaws.com'
+  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+  
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.

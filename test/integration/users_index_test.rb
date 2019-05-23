@@ -4,6 +4,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
   def setup
     @admin     = users(:michael)
     @non_admin = users(:archer)
+    @non_activated = users(:non_activated)
   end
 
   test "index as admin including pagination and delete links" do
@@ -27,5 +28,20 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     log_in_as(@non_admin)
     get users_path
     assert_select 'a', text: 'delete', count: 0
+  end
+  
+  test "index only including activated users" do
+    log_in_as(@admin)
+    get users_path
+    assert_template 'users/index'
+    users = assigns(:users)
+    users.each do |user|
+      assert user.activated?
+    end
+    assert_select "a[href=?]", user_path(@non_activated), count: 0
+    
+    # Todo: users/:id 用のintegration testファイルを作成する？
+    get user_path(@non_activated)
+    assert_redirected_to root_url
   end
 end
